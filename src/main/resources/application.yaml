@@ -6,7 +6,8 @@ spring:
     driverClassName: org.h2.Driver
 
   jpa:
-    hibernate.ddl-auto: create
+    hibernate:
+      ddl-auto: update
     generate-ddl: true
     show-sql: true
     properties:
