@@ -5,7 +5,9 @@ import java.util.List;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -25,18 +27,25 @@ public class MenuItem {
 	long id;
 	String name;
 	
-	@OneToMany
-	List<Reviews> reviews;
+	@OneToMany(mappedBy = "menuItem",
+			cascade = { CascadeType.PERSIST, CascadeType.REMOVE },
+			fetch = FetchType.LAZY)
+	List<Review> reviews;
 	
-	public void setReviews(List<Reviews> reviews) {
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
 
+	public MenuItem() {
+	}
+	
 	public MenuItem(String name) {
 		this.name=name;
 	}
-	
-	
 	
 	@Override
 	public String toString() {

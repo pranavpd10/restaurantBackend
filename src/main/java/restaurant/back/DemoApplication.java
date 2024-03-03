@@ -9,19 +9,25 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import restaurant.back.Services.MenuItemService;
+import restaurant.back.Services.MenuItemServiceProto;
 
-//@EnableJpaRepositories("restaurant.back")
-//@EntityScan("restaurant.back")
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner{
 
 	@Autowired
-	MenuItemService menuItemService;
+	MenuItemServiceProto menuItemService;
 	
 	@Override
 	public void run(String... args) throws Exception {
-		menuItemService.createMenuItem();
+//		menuItemService.deleteItems();
+//		menuItemService.createMenuItem();
+//		menuItemService.mi();
+//		menuItemService.openMenuItem();
+		
+		
+		
+//		menuItemService.getMenuItemReview();
+		menuItemService.deleteMenuItemReview();
 	}
 	
 	public static void main(String[] args) {

@@ -3,12 +3,12 @@ package restaurant.back;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import restaurant.back.Services.MenuItemService;
+import restaurant.back.Services.MenuItemServiceProto;
 
 @Controller
 public class Apprun {
 	@Autowired
-	MenuItemService menuItemService;
+	MenuItemServiceProto menuItemService;
 	
 	public void test() {
 		try {

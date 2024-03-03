@@ -6,14 +6,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Reviews {
+public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	long id;
 	String title;
 	
+	@ManyToOne
+	@JoinColumn(name ="menu_item")
+	MenuItem menuItem;
+	
+	public MenuItem getMenuItem() {
+		return menuItem;
+	}
+
+
+	public void setMenuItem(MenuItem menuItem) {
+		this.menuItem = menuItem;
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -24,7 +39,7 @@ public class Reviews {
 	
 	@Override
 	public String toString() {
-		return "Reviews [id=" + id + ", title=" + title + ", description=" + description + ", rate=" + rate + "]";
+		return "Reviews [id=" + id + ", title=" + title + ", description=" + description + ", rate=" + rate + "menuitem id" + menuItem.id + "]";
 	}
 
 
@@ -42,7 +57,7 @@ public class Reviews {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Reviews other = (Reviews) obj;
+		Review other = (Review) obj;
 		return Objects.equals(description, other.description) && id == other.id && rate == other.rate
 				&& Objects.equals(title, other.title);
 	}
