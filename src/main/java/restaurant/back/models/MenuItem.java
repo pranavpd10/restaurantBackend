@@ -5,6 +5,8 @@ import java.util.List;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,8 +29,14 @@ public class MenuItem {
 	long id;
 	String name;
 	
+	
+	/* @JsonProperty with access property is used for creating menuItem
+	 * but not to read that property so that to avoid recursive 
+	 * serialization */
+//	@JsonManagedReference // forward serialization
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@OneToMany(mappedBy = "menuItem",
-			cascade = { CascadeType.PERSIST, CascadeType.REMOVE },
+//			cascade = { CascadeType.PERSIST, CascadeType.REMOVE },
 			fetch = FetchType.LAZY)
 	List<Review> reviews;
 	

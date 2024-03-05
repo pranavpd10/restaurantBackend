@@ -14,8 +14,11 @@ public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	long id;
+	byte rate;
 	String title;
+	String description;
 	
+//	@JsonBackReference // backward serialization
 	@ManyToOne
 	@JoinColumn(name ="menu_item")
 	MenuItem menuItem;
@@ -33,10 +36,6 @@ public class Review {
 		this.title = title;
 	}
 
-	String description;
-	byte rate;
-	
-	
 	@Override
 	public String toString() {
 		return "Reviews [id=" + id + ", title=" + title + ", description=" + description + ", rate=" + rate + "menuitem id" + menuItem.id + "]";
