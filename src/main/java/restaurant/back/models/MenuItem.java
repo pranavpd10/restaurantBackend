@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
@@ -13,6 +14,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 
 @Entity
@@ -27,6 +29,8 @@ public class MenuItem {
 			@Parameter(name = "increment_size", value = "2")
 	})
 	long id;
+	
+	@NotBlank
 	String name;
 	
 	
@@ -57,7 +61,7 @@ public class MenuItem {
 	
 	@Override
 	public String toString() {
-		return "MenuItem [id=" + id + ", name=" + name + "]";
+		return "MenuItem [id=" + id + ", name=" + name + " "+ reviews +"]";
 	}
 
 
@@ -79,6 +83,4 @@ public class MenuItem {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
 }

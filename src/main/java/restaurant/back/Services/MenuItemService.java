@@ -28,7 +28,7 @@ public class MenuItemService {
 	}
 	
 	@Transactional
-	public void createMenuItems(MenuItem menuItem) {
+	public void createMenuItem(MenuItem menuItem) {
 		try {
 			 MenuItem save = menuItemRepo.save(menuItem);
 		} catch (Exception e) {
@@ -36,4 +36,8 @@ public class MenuItemService {
 		}
 	}
 	
+	@Transactional
+	public void deleteMenuItem(MenuItem menuItem) {
+		menuItemRepo.delete(menuItem);
+	}
 }

@@ -3,14 +3,18 @@ package restaurant.back.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import restaurant.back.Services.MenuItemService;
 import restaurant.back.models.MenuItem;
+import restaurant.back.models.Review;
 
 
 @RestController
@@ -36,8 +40,19 @@ public class MenuItemController {
 	 * @param menuItem
 	 */
 	@PostMapping("/menuitems")
-	public void createMenuItems(@RequestBody MenuItem menuItem) {
+	public void createMenuItems(@RequestBody @Valid MenuItem menuItem) {
 		System.out.println("menuItem "+menuItem);
-		menuItemService.createMenuItems(menuItem);
+		menuItemService.createMenuItem(menuItem);
+	}
+	
+	/**
+	 * deletes the menuItem passed
+	 * @param menuItem
+	 */
+	@DeleteMapping("/menuitems")
+	public void deleteMenuItem(@RequestBody MenuItem menuItem,
+			@RequestBody Review review) {
+		System.out.println("menuItem "+menuItem + " review "+review);
+//		menuItemService.deleteMenuItem(menuItem);
 	}
 }
