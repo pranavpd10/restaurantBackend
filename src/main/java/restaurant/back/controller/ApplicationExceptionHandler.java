@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import restaurant.back.Exceptions.ErrorMap;
+import restaurant.back.Exceptions.InvalidPathVariable;
 import restaurant.back.Exceptions.InvalidRequestParamExcpetion;
 
 @RestControllerAdvice
@@ -27,8 +29,8 @@ public class ApplicationExceptionHandler {
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(InvalidRequestParamExcpetion.class)
-	public Map<String, String> invalidRequestParam(InvalidRequestParamExcpetion ex) {
+	@ExceptionHandler({InvalidRequestParamExcpetion.class,InvalidPathVariable.class})
+	public Map<String, String> invalidRequestParam(ErrorMap ex) {
 		return ex.getErrorMap();
 		
 	}

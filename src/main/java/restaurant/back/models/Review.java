@@ -44,6 +44,7 @@ public class Review {
 	String description;
 	
 	@CreatedDate
+	@Column(updatable = false)
 	Date createdDate;
 
 	public Date getCreatedDate() {

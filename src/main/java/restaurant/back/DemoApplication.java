@@ -14,10 +14,6 @@ import restaurant.back.Services.MenuItemServiceProto;
 @EnableJpaAuditing
 public class DemoApplication implements CommandLineRunner{
 	
-//	  @Bean
-//	  public AuditorAware<AuditableUser> auditorProvider() {
-//	    return new AuditorAwareImpl();
-//	  }
 
 	@Autowired
 	MenuItemServiceProto menuItemService;

@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import restaurant.back.Exceptions.InvalidPathVariable;
 import restaurant.back.Exceptions.InvalidRequestParamExcpetion;
 import restaurant.back.Services.ReviewService;
 import restaurant.back.models.MenuItem;
 import restaurant.back.models.Review;
 import restaurant.back.repos.ReviewRepo;
 
+import restaurant.back.Util.MenuItemReviewFunctions;
 @RestController
 public class ReviewController {
 	private static final List<String> REVIEW_COLUMNS = new ArrayList<>();
@@ -37,22 +39,34 @@ public class ReviewController {
 	@Autowired
 	ReviewService reviewService;
 	
+	@Autowired
+	MenuItemReviewFunctions menuItemReviewFunctions;
+	
 	@GetMapping("/getReviews/{menuItemId}")
-	public List<Review> getMenuItems(@PathVariable long menuItemId, @RequestParam(required = false) String column) {
+	public ResponseEntity<List<Review>> getMenuItems(@PathVariable long menuItemId, @RequestParam(required = false) String column) {
 		System.out.println(" menuItemId "+menuItemId + " column "+column);
+		ResponseEntity<List<Review>> reviewEntity = null;
 		List<Review> reviews = null;
+		if(!menuItemReviewFunctions.isMenuItemPresent(menuItemId)) {
+			Map<String, String> errorMap = new HashMap<>();
+			errorMap.put("pathVariable", "no menu item present on id " + menuItemId);
+			throw new InvalidPathVariable(errorMap);
+		}
 		if (column != null) {
 			if (!REVIEW_COLUMNS.contains(column)) {
 				Map<String, String> errorMap = new HashMap<>();
 				errorMap.put("sorting column", "invalid value " + column);
 				throw new InvalidRequestParamExcpetion(errorMap);
-			}else {
+			} else {
 				reviews = reviewService.getReviewsBySortedColumn(column);
+				reviewEntity = reviewEntity.ok().body(reviews);
 			}
 		} else {
 			reviews = reviewService.getAllReview(menuItemId);
+			reviewEntity = reviewEntity.ok().body(reviews);
+
 		}
-		return reviews;
+		return reviewEntity;
 	}
 	
 	@GetMapping("/getReviewsByRating/{title}/")
